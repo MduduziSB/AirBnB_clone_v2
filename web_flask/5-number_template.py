@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """This script starts a Flask web application"""
-from flask import Flask
+from flask import Flask, render_template
 from markupsafe import escape
 
 
@@ -48,10 +48,10 @@ def is_number(n):
     return f"{n} is a number"
 
 
-@app.route('/number_template/<int:n>')
-def number_template(n):
-    """Displays “Number: n” inside the tag BODY"""
-    return render_template('5-template.html', n=n)
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def numbersandtemplates(n):
+    """displays an HTML page if n is an integeir"""
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
