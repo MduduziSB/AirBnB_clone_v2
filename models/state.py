@@ -8,14 +8,15 @@ from os import getenv as gv
 
 
 class State(BaseModel, Base):
-    """ State class """
+    """State class"""
     __tablename__ = 'states'
-
     storage_type = gv("HBNB_TYPE_STORAGE")
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state", cascade="delete")
 
-    if storage_engine != "db":
+    if storage_type == "db":
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", backref="state", cascade="all, delete")
+
+    else:
         name = ""
 
         @property
