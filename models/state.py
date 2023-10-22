@@ -12,18 +12,17 @@ class State(BaseModel, Base):
     __tablename__ = 'states'
 
     storage_type = gv("HBNB_TYPE_STORAGE")
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", backref="state", cascade="delete")
 
-    # For DBStorage: Relationship with City and cascade delete
-    if storage_type == 'db':
-        name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state",
-                              cascade="all, delete-orphan")
+    if storage_engine != "db":
+        name = ""
 
-    if storage_type == 'file':
         @property
         def cities(self):
             """Getter attribute to retrieve linked City instances"""
             from models import storage
-            city_instances = storage.all("City")
+            from models.city import City
+            city_instances = storage.all(City).values()
             return [city for city in city_instances.values()
                     if city.state_id == self.id]
