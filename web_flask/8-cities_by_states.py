@@ -19,9 +19,18 @@ def cities_by_states():
     """
     Displays list of all State objects present in DBStorage sorted alphabetical
     """
+    @app.route('/states', strict_slashes=False)
+    @app.route('/states/<state_id>', strict_slashes=False)
+    def cities_by_states(state_id=None):
+    
     states = storage.all(State)
-    states_list = sorted(list(states.values()))
-    return render_template('8-cities_by_states.html', states=states_list)
+    state = None
+
+    if state_id:
+        state = states.get(state_id)
+
+    return render_template('9-states.html', states=states.values(),
+                           state=state)
 
 
 if __name__ == '__main__':
