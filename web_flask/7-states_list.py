@@ -11,21 +11,22 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.route('/states_list', strict_slashes=False)
-def states_list():
-    """
-    display an HTML page with the list of all states sorted by name (A->Z)
-    """
-    states = sorted(list(storage.all("State").values()), key=lambda i: i.name)
-    return render_template('7-states_list.html', states=states)
-
-
 @app.teardown_appcontext
 def teardown_db(exception):
     """
     Calls the storage.close() method
     """
     storage.close()
+
+
+@app.route('/states_list', strict_slashes=False)
+def states_list():
+    """
+    display an HTML page with the list of all states sorted by name (A->Z)
+    """
+    states = storage.all(State)
+    states_list = sorted(list(states.values()))
+    return render_template('7-states_list.html', states=states_list)
 
 
 if __name__ == '__main__':
