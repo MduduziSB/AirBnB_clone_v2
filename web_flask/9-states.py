@@ -8,18 +8,22 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.route('/cities_by_states')
-def cities_by_states():
+@app.route('/states/')
+@app.route('/states/<id>')
+def states_and_state(id=None):
     """
-    Displays list of all State objects present in DBStorage sorted alphabetical
+    lists of all State objects present in DBStorage sorted by name (A->Z)
     """
-    states = sorted(storage.all(State).values(), key=lambda state: state.name)
-    return render_template('7-states_list.html', states=states)
+    if id not None and id != "":
+        id = 'State.{}'.format(id)
+    return render_template('9-states.html', states=storage.all(State), id=id)
 
 
 @app.teardown_appcontext
 def teardown(exception):
-    """removes the current SQLAlchemy Session """
+    """
+    removes the current SQLAlchemy Session
+    """
     storage.close()
 
 

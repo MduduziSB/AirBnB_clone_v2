@@ -16,8 +16,7 @@ def states_list():
     """
     display an HTML page with the list of all states sorted by name (A->Z)
     """
-    ctates = storage.all(State)
-    states_list = sorted(ctates.values(), key=lambda state: state.name)
+    states = sorted(storage.all(State).values(), key=lambda state: state.name)
     return render_template('7-states_list.html', states=states_list)
 
 
