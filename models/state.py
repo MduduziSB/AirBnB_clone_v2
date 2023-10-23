@@ -24,6 +24,6 @@ class State(BaseModel, Base):
             """Getter attribute to retrieve linked City instances"""
             from models import storage
             from models.city import City
-            city_instances = storage.all(City).values()
+            city_instances = storage.all(City)
             return [city for city in city_instances.values()
                     if city.state_id == self.id]
