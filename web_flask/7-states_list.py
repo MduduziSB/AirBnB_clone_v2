@@ -17,7 +17,7 @@ def states_list():
     display an HTML page with the list of all states sorted by name (A->Z)
     """
     states = sorted(storage.all(State).values(), key=lambda state: state.name)
-    return render_template('7-states_list.html', states=states_list)
+    return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
