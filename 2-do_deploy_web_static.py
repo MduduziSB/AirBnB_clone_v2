@@ -13,6 +13,7 @@ env.hosts = ['54.90.56.157', '100.25.192.254']
 
 
 def do_deploy(archive_path):
+    """distributes an archive to my web servers"""
     if not exists(archive_path):
         return False
 
@@ -22,7 +23,7 @@ def do_deploy(archive_path):
 
         # Extract the archive to a new folder in /data/web_static/releases
         archive_filename = archive_path.split('/')[-1]
-        release_path = "/data/web_static/releases/{}".format(archive_filename[:-4])
+        release_path = f"/data/web_static/releases/{archive_filename[:-4]}"
         run("mkdir -p {}".format(release_path))
         run("tar -xzf /tmp/{} -C {}".format(archive_filename, release_path))
 
