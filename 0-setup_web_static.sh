@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#ack_web_static.py!/usr/bin/env bash
 # This Bash script sets up your web servers for the deployment of web_static
 
 apt-get update
